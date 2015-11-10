@@ -1,0 +1,18 @@
+#!/usr/bin/lua
+local JSON = (loadfile "/usr/lib/lua/luci/JSON.lua")()
+JSON.strictTypes = true
+local param = {
+	title = arg[1],
+	root = arg[2],
+	index = arg[3]
+}
+local req = { 
+	path 			=	{"widget_registry"},
+	parameter = param,		
+	method	 	= arg[4]
+}
+local req = JSON:encode({ver="0001",request=JSON:encode(req)})
+local rpc = io.popen("rsserial -j "..req:gsub("\\","\\\\"):gsub("\"","\\\""))
+local rsp = rpc:read("*a")
+print(rsp)
+rpc:close()
