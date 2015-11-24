@@ -23,7 +23,7 @@ export SCP:=scp
 export SSH:=ssh
 export PATH:=${PATH}:${CURDIR}/tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin
 
-$(foreach subdir,$(shell find package -mindepth 1 -maxdepth 1 -type d), $(info $(subdir)))
+$(foreach subdir,$(shell find package -mindepth 1 -maxdepth 1 -type d -follow), $(info $(subdir)))
 
 define subtargets
   $(1)/compile:
@@ -31,4 +31,4 @@ define subtargets
   $(1)/clean:
 	$(MAKE) -C $(1) clean
 endef
-$(foreach subdir,$(shell find package -mindepth 1 -maxdepth 1 -type d), $(eval $(call subtargets, $(subdir))))
+$(foreach subdir,$(shell find package -mindepth 1 -maxdepth 1 -type d -follow), $(eval $(call subtargets, $(subdir))))
