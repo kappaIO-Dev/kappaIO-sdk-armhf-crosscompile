@@ -38,6 +38,6 @@ define BuildTarget/dpkg
 		$($(1)_COMMANDS) \
 	)
 	chmod 755 $(STAGING_DIR)/DEBIAN/postinst
-	dpkg-deb --build $(STAGING_DIR) $(PACKAGE_DIR)/$(PACKAGE_BIN_DPKG)
+	fakeroot dpkg-deb --build $(STAGING_DIR) $(PACKAGE_DIR)/$(PACKAGE_BIN_DPKG)
 	chmod 755 $(PACKAGE_DIR)/$(PACKAGE_BIN_DPKG)
 endef
